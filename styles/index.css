@@ -1,0 +1,45 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: verdana;
+  padding: 5px;
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+h1 {
+  margin: 0;
+  padding: 0;
+}
+body {
+  padding: 5px;
+}
+#banner {
+  max-width: 80%;
+  color: green;
+  filter: hue-rotate(-10deg);
+}
+#spinner {
+  color: red;
+}
+#controls {
+  padding: 5px;
+}
+.infoLabel {
+  font-size: 75%;
+}
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
