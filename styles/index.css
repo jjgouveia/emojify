@@ -1,4 +1,6 @@
 * {
+  cursor: url(https://raw.githubusercontent.com/nostalgic-css/NES.css/develop/assets/cursor.png),
+    auto !important;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -29,9 +31,7 @@ body {
   color: green;
   filter: hue-rotate(-10deg);
 }
-#spinner {
-  color: red;
-}
+
 #controls {
   padding: 5px;
 }
@@ -42,4 +42,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+#result {
 }
