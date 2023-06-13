@@ -29,7 +29,9 @@
     <div class="container">
         <div id="controls">
             <div style="text-align:center;margin:0px;padding:0px;">
-                <h1><img alt="Emoji Art Maker" id="banner" src="https://assets.codepen.io/1197275/EmojiBanner1.png" />
+                <h1>
+                    Emojify
+                    <!-- <img alt="Emoji Art Maker" id="banner" src="https://assets.codepen.io/1197275/EmojiBanner1.png" /> -->
                 </h1>
             </div>
             <!-- <input type="file" name="image" id="image"> -->
@@ -49,8 +51,8 @@
             <div class="container">
                 <label title="Smaller window = higher resolution, more emojis, slower" for="pSize">Analysis
                     Window:</label>
-                <input oninput="pSizeInfo.innerText=this.value+'px'" type="range" step="1" min="1" max="50" value="7"
-                    id="pSize">
+                <input oninput="pSizeInfo.innerText=this.value+'px'" type="range" class="form-range" step="1" min="1"
+                    max="50" value="7" id="pSize">
                 <label class="infoLabel" id="pSizeInfo">7px</label>
             </div>
 
@@ -94,11 +96,13 @@
             <div class="container">
                 <label for="display">Display mode:</label>
                 <select id="display">
-                    <option selected value="grid">Grid</option>
-                    <option value="mosaic">Mosaic</option>
+                    <option selected value="grid">Grade</option>
+                    <option value="mosaic">Mosáico</option>
                     <option value="chart">Chart</option>
                 </select>
             </div>
+
+
 
             <div class="container">
                 <label for="hideBlack">Hide Black/Transparent</label><input type="checkbox" id="hideBlack">
@@ -117,6 +121,7 @@
             </div>
         </footer>
         <script src="/scripts/upload.js"></script>
+
 
         <script defer>
             window.CP && (window.CP.PenTimer.MAX_TIME_IN_LOOP_WO_EXIT = 60000);
@@ -145,6 +150,14 @@
             main()
 
             const progressBar = document.querySelector('.progress-bar');
+            const canvas = document.querySelector('canvas');
+
+            if (canvas && canvas.getContext) {
+                const ctx = canvas.getContext('2d');
+                ctx.fillStyle = 'rgb(200, 0, 0)';
+                ctx.fillRect(10, 10, 50, 50);
+            }
+
 
 
             async function main (ev) {
@@ -169,7 +182,6 @@
 
             async function analyzeImage (img) {
 
-                // spinner.style.display = "inline";
                 progressBar.style.display = "inline";
                 await delay(100)
                 const ROWS = Math.floor(img.naturalHeight / pSize.value);
