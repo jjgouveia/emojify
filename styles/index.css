@@ -10,6 +10,7 @@ body {
   font-family: verdana;
   padding: 5px;
   text-align: center;
+  background-color: #e6e6e6;
 }
 
 .container {
@@ -19,13 +20,66 @@ body {
   align-items: center;
 }
 
+.progress {
+  margin: 1rem;
+  background-color: rgb(174, 174, 174);
+}
+
 h1 {
   margin: 0;
   padding: 0;
 }
+
+.select-img-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.desc-container {
+  width: 300px;
+}
+
+.desc {
+  text-align: justify;
+  font-size: 0.8rem;
+  margin: 0.5rem;
+}
+
 body {
   padding: 5px;
 }
+
+.comic-button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  width: fit-content;
+  text-decoration: none;
+  color: #fff;
+  background-color: #ff5252;
+  border: 2px solid #000;
+  border-radius: 10px;
+  box-shadow: 5px 5px 0px #000;
+  transition: all 0.3s ease;
+}
+
+.comic-button:hover {
+  background-color: #fff;
+  color: #ff5252;
+  border: 2px solid #ff5252;
+  box-shadow: 5px 5px 0px #ff5252;
+}
+
+.comic-button:active {
+  background-color: #fcf414;
+  box-shadow: none;
+  transform: translateY(4px);
+}
+
 #banner {
   max-width: 80%;
   color: green;
@@ -44,7 +98,35 @@ body {
   align-items: center;
 }
 
-body {
+.accordion-container {
+  display: flex;
+  min-width: 390px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
+}
+
+.accordion-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 390px;
+  cursor: pointer;
+  height: max-content;
+}
+
+.accordion-item {
+  background-color: #fff;
+  border: 1px solid #eee;
+  border-radius: 0.25rem;
+  margin-bottom: 0.5rem;
+  width: 100%;
+}
+
+/* body {
   background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
   background-size: 400% 400%;
   animation: gradient 15s ease infinite;
@@ -61,4 +143,4 @@ body {
   100% {
     background-position: 0% 50%;
   }
-}
+} */
