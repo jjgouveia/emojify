@@ -10,6 +10,7 @@ body {
   padding: 5px;
   text-align: center;
   background-color: #e6e6e6;
+  background: url("../assets/tile_backgroung.png");
 }
 
 .container {
