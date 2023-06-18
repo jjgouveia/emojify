@@ -3,7 +3,6 @@
     auto !important;
   box-sizing: border-box;
   margin: 0;
-  padding: 0;
 }
 
 body {
@@ -21,13 +20,7 @@ body {
 }
 
 .progress {
-  margin: 1rem;
-  background-color: rgb(174, 174, 174);
-}
-
-h1 {
-  margin: 0;
-  padding: 0;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.234);
 }
 
 .select-img-container {
@@ -45,10 +38,6 @@ h1 {
   text-align: justify;
   font-size: 0.8rem;
   margin: 0.5rem;
-}
-
-body {
-  padding: 5px;
 }
 
 .comic-button {
@@ -80,12 +69,6 @@ body {
   transform: translateY(4px);
 }
 
-#banner {
-  max-width: 80%;
-  color: green;
-  filter: hue-rotate(-10deg);
-}
-
 #controls {
   padding: 5px;
 }
@@ -100,7 +83,6 @@ body {
 
 .accordion-container {
   display: flex;
-  min-width: 390px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -113,7 +95,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-width: 390px;
+  width: 380px;
   cursor: pointer;
   height: max-content;
 }
