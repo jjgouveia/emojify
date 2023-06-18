@@ -221,29 +221,50 @@ async function delay (ms) {
 }
 
 //https://stackoverflow.com/questions/15408522/rgb-to-xyz-and-lab-colours-conversion
+// function RGBtoXYZ (R, G, B) {
+
+//     var_R = parseFloat(R / 255)        //R from 0 to 255
+//     var_G = parseFloat(G / 255)        //G from 0 to 255
+//     var_B = parseFloat(B / 255)        //B from 0 to 255
+
+//     if (var_R > 0.04045) var_R = Math.pow((var_R + 0.055) / 1.055, 2.4)
+//     else var_R = var_R / 12.92
+//     if (var_G > 0.04045) var_G = Math.pow((var_G + 0.055) / 1.055, 2.4)
+//     else var_G = var_G / 12.92
+//     if (var_B > 0.04045) var_B = Math.pow((var_B + 0.055) / 1.055, 2.4)
+//     else var_B = var_B / 12.92
+
+//     var_R = var_R * 100
+//     var_G = var_G * 100
+//     var_B = var_B * 100
+
+//     //Observer. = 2°, Illuminant = D65
+//     X = var_R * 0.4124 + var_G * 0.3576 + var_B * 0.1805
+//     Y = var_R * 0.2126 + var_G * 0.7152 + var_B * 0.0722
+//     Z = var_R * 0.0193 + var_G * 0.1192 + var_B * 0.9505
+//     return [X, Y, Z]
+// }
+
 function RGBtoXYZ (R, G, B) {
+    let var_R = R / 255; // R de 0 a 255
+    let var_G = G / 255; // G de 0 a 255
+    let var_B = B / 255; // B de 0 a 255
 
-    var_R = parseFloat(R / 255)        //R from 0 to 255
-    var_G = parseFloat(G / 255)        //G from 0 to 255
-    var_B = parseFloat(B / 255)        //B from 0 to 255
+    var_R = var_R > 0.04045 ? Math.pow((var_R + 0.055) / 1.055, 2.4) : var_R / 12.92;
+    var_G = var_G > 0.04045 ? Math.pow((var_G + 0.055) / 1.055, 2.4) : var_G / 12.92;
+    var_B = var_B > 0.04045 ? Math.pow((var_B + 0.055) / 1.055, 2.4) : var_B / 12.92;
 
-    if (var_R > 0.04045) var_R = Math.pow((var_R + 0.055) / 1.055, 2.4)
-    else var_R = var_R / 12.92
-    if (var_G > 0.04045) var_G = Math.pow((var_G + 0.055) / 1.055, 2.4)
-    else var_G = var_G / 12.92
-    if (var_B > 0.04045) var_B = Math.pow((var_B + 0.055) / 1.055, 2.4)
-    else var_B = var_B / 12.92
+    var_R *= 100;
+    var_G *= 100;
+    var_B *= 100;
 
-    var_R = var_R * 100
-    var_G = var_G * 100
-    var_B = var_B * 100
+    const X = var_R * 0.4124 + var_G * 0.3576 + var_B * 0.1805; // Observer = 2°, Illuminant = D65
+    const Y = var_R * 0.2126 + var_G * 0.7152 + var_B * 0.0722;
+    const Z = var_R * 0.0193 + var_G * 0.1192 + var_B * 0.9505;
 
-    //Observer. = 2°, Illuminant = D65
-    X = var_R * 0.4124 + var_G * 0.3576 + var_B * 0.1805
-    Y = var_R * 0.2126 + var_G * 0.7152 + var_B * 0.0722
-    Z = var_R * 0.0193 + var_G * 0.1192 + var_B * 0.9505
-    return [X, Y, Z]
+    return [X, Y, Z];
 }
+
 
 //https://stackoverflow.com/questions/15408522/rgb-to-xyz-and-lab-colours-conversion
 // function XYZtoLAB (x, y, z) {
@@ -269,7 +290,7 @@ function RGBtoXYZ (R, G, B) {
 //     return [CIE_L, CIE_a, CIE_b]
 // }
 
-function XYZtoLAB(x, y, z) {
+function XYZtoLAB (x, y, z) {
     const ref_X = 95.047;
     const ref_Y = 100.000;
     const ref_Z = 108.883;
@@ -287,7 +308,7 @@ function XYZtoLAB(x, y, z) {
     const CIE_b = 200 * (var_Y - var_Z);
 
     return [CIE_L, CIE_a, CIE_b];
-  }
+}
 
 
 /*https://stackoverflow.com/questions/54738431/calculate-deltae94-in-javascript*/

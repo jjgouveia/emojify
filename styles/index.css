@@ -6,8 +6,7 @@
 }
 
 body {
-  font-family: verdana;
-  padding: 5px;
+  font-family: comic sans ms;
   text-align: center;
   background-color: #e6e6e6;
   background: url("../assets/tile_backgroung.png");
@@ -147,4 +146,19 @@ body {
   border-radius: 0.25rem;
   margin-bottom: 0.5rem;
   width: 100%;
+}
+
+.result-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  margin: 0 auto;
+}
+
+@media (width > 768px) {
+  .result-container {
+    width: 50%;
+  }
 }
