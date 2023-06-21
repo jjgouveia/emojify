@@ -52,11 +52,6 @@
                     </span>
                 </div>
             </div>
-
-            <!-- <div class="progress container-fluid" role="progressbar" aria-label="Basic example" aria-valuenow="0"
-                aria-valuemin="0" aria-valuemax="97">
-                <div class="progress-bar" style="width: 0%"></div>
-            </div> -->
             <div class="progress-container">
 
 
@@ -90,6 +85,13 @@
                                 </select>
                             </div>
                             <div class="container border-bottom mt-2 pb-2">
+                                <label for="algorithm">Algoritmo:</label>
+                                <select class="form-select text-center" id="algorithm">
+                                    <option selected value="deltaE94">DeltaE94</option>
+                                    <option value="deltaE2000">DeltaE00</option>
+                                </select>
+                            </div>
+                            <div class="container border-bottom mt-2 pb-2">
                                 <label title="Smaller window = higher resolution, more emojis, slower"
                                     for="pSize">Densidade:</label>
                                 <input oninput="pSizeInfo.innerText=this.value+'px'" type="range" class="form-range"
@@ -111,8 +113,8 @@
                                     title="Low tolerance = more accurate color, less variety of emojis">Taxa de
                                     correspondência:</label>
                                 <input class="form-range" oninput="toleranceInfo.innerText=this.value" type="range"
-                                    min="1" step="1" max="30" value="8" id="tolerance">
-                                <label class="infoLabel" id="toleranceInfo">8</label>
+                                    min="1" step="1" max="30" value="12" id="tolerance">
+                                <label class="infoLabel" id="toleranceInfo">12</label>
                             </div>
 
                             <div class="container border-bottom mt-2 pb-2" style="display:none">
@@ -146,18 +148,14 @@
                     </div>
 
                 </div>
-
-
-
             </div>
-
         </div>
         <div class="result-container">
             <canvas id="result" class="container mt-2"></canvas>
         </div>
         <div>
-            <button class="comic-button container-fluid mt-2 mb-3" title="Baixar essa obra de arte"
-                onclick="downloadIt()">Baixar
+            <button class="comic-button container-fluid mt-2 mb-3" id="downloadBtn"
+                title="Baixar essa obra de arte">Baixar
                 imagem</button>
         </div>
 
@@ -167,7 +165,6 @@
             </div>
         </footer>
         <script src="/scripts/upload.js"></script>
-        <!-- <script src="./scripts/emojiSlider.js"></script> -->
         <script src="./scripts/emojiSlider.js"></script>
         <script src="./scripts/main.js"></script>
     </div>
