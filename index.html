@@ -6,15 +6,16 @@
     <link rel="icon" type="image" href="/assets/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Emojify</title>
-    <meta name="description" content="Transforme fotos em um mosaico de emojis!" />
+    <meta name="description" content="Transforme imagens em obra de artes com de emojis!" />
     <meta name="keywords" content="emojis, mosaico, fotos, imagens, transformar, emoji, emojify" />
     <meta name="author" content="Jr Gouveia" />
     <meta name="theme-color" content="#ffffff" />
     <meta property="og:title" content="Emojify" />
-    <meta property="og:description" content="Transforme fotos em um mosaico de emojis!" />
+    <meta property="og:description" content="Transforme imagens em obra de artes com de emojis!" />
     <!-- <meta property="og:image" content="https://emojify.jrgouveia.com.br/og-image.png" />
     <meta property="og:url" content="https://emojify.jrgouveia.com.br/" />
-    <meta property="og:site_name" content="Emojify" /> -->
+     -->
+    <meta property="og:site_name" content="Emojify" />
     <meta property="og:locale" content="pt_BR" />
     <meta property="og:type" content="website" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -38,6 +39,7 @@
             <div style="text-align:center;margin:0px;padding:0px;">
                 <div class="logo">
                     <img alt="Emojify" id="banner" src="./assets/emojify_logo.png" />
+                    <h4 class="beta" style="user-select: none;">beta</h4>
                 </div>
             </div>
 
@@ -47,9 +49,9 @@
                     <button class="comic-button container">Selecione uma imagem</button>
                 </div>
                 <div class="desc-container mt-1">
-                    <span class="desc">
+                    <h4 class="desc">
                         A imagem será convertida automagicamente em um mosaico de emojis!
-                    </span>
+                    </h4>
                 </div>
             </div>
             <div class="progress-container">
@@ -58,7 +60,7 @@
                 <div class="moji">👀</div>
                 <div class="slider">
                     <div class="progress mb-3" role="progressbar" aria-label="Basic example" aria-valuenow="0"
-                        aria-valuemin="0" aria-valuemax="97">
+                        aria-valuemin="0" aria-valuemax="100">
                         <div id="emojiRange" class="progress-bar" style="width: 0%"></div>
                     </div>
                 </div>
@@ -92,7 +94,8 @@
                                 </select>
                             </div>
                             <div class="container border-bottom mt-2 pb-2">
-                                <label title="Smaller window = higher resolution, more emojis, slower"
+                                <label
+                                    title="Tela menor = maior a resolução. Logo: mais emojis = mais tempo de processamento"
                                     for="pSize">Densidade:</label>
                                 <input oninput="pSizeInfo.innerText=this.value+'px'" type="range" class="form-range"
                                     step="1" min="1" max="50" value="5" id="pSize">
@@ -101,7 +104,7 @@
 
                             <div class="container border-bottom mt-2 pb-2">
                                 <label for="scale"
-                                    title="Controls the size of each emoji in the output image. (if you go too high here with lots of emojis, you may exceed max canvas size)">Tamanho
+                                    title="Controla o tamanho dos emojis. Valores muito altos podem exceder o tamanho máximo do quadro.">Tamanho
                                     dos Emojis:</label>
                                 <input class="form-range" oninput="scaleInfo.innerText=this.value+'px'" type="range"
                                     min="1" step="1" max="50" value="12" id="scale">
@@ -110,7 +113,7 @@
 
                             <div id="c1" class="container border-bottom mt-2 pb-2">
                                 <label for="tolerance"
-                                    title="Low tolerance = more accurate color, less variety of emojis">Taxa de
+                                    title="Menor tolerância = cores mais precisas, menos variedade de emojis.">Taxa de
                                     correspondência:</label>
                                 <input class="form-range" oninput="toleranceInfo.innerText=this.value" type="range"
                                     min="1" step="1" max="30" value="12" id="tolerance">
@@ -119,7 +122,7 @@
 
                             <div class="container border-bottom mt-2 pb-2" style="display:none">
                                 <label for="fillColor"
-                                    title="Controls 'empty space' fill color when analyzing emojis and effects brightness of result">Emoji
+                                    title="Controla 'espaços vazios' fill color when analyzing emojis and effects brightness of result">Emoji
                                     Fill Color (black to white):</label><input type="color" value="#888888"
                                     id="fillColor">
                             </div>
@@ -130,8 +133,8 @@
                                     Tolerância de espaços vazios: </label>
                                 <input class="form-range"
                                     oninput="emptySpaceInfo.innerText=(this.value*100).toFixed(0)+'%'" type="range"
-                                    min=".4" step=".02" max="1" value=".7" id="emptySpace">
-                                <label class="infoLabel" id="emptySpaceInfo">70%</label>
+                                    min=".4" step=".02" max="1" value=".75" id="emptySpace">
+                                <label class="infoLabel" id="emptySpaceInfo">75%</label>
                             </div>
 
                             <div class="container border-bottom mt-2 pb-2">
@@ -161,7 +164,15 @@
 
         <footer class="card-footer border-2">
             <div class="container">
-                <p>Feito por <a href="https://juniorgouveia.me">Jr Gouveia</a></p>
+                <p>
+                    ©
+                    <script>
+                        function getYear () {
+                            return new Date().getFullYear();
+                        }
+                        document.write(getYear());
+                    </script> | <a href="https://juniorgouveia.me" target="_blank"> Jr Gouveia</a>
+                </p>
             </div>
         </footer>
         <script src="/scripts/upload.js"></script>

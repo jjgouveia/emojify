@@ -1,5 +1,5 @@
 function atualizarMoji () {
-    const mojis = ['🤔', '🤨', '😯', '🙂', '🤗', '😛', '😜', '😝', '😄', '🥰', '😍'];
+    const mojis = ['👀', '🤨', '😯', '🙂', '🤗', '😛', '😜', '😝', '😄', '🥰', '😍'];
     const mojiDiv = document.querySelector(".moji");
 
     const observer = new ResizeObserver((entries) => {
