@@ -1,6 +1,6 @@
 var input = document.querySelector("#image");
 
-document.querySelector("button").addEventListener("click", function () {
+document.querySelector(".comic-button").addEventListener("click", function () {
     input.click();
 });
 

@@ -15,9 +15,18 @@
 body {
   font-family: "ComicNeue", sans-serif;
   text-align: center;
-  background-color: #e6e6e6;
   background-attachment: fixed;
-  background: url("../assets/tile_backgroung.png");
+}
+
+.light-mode {
+  background: url("../assets/light_mode_bg.png");
+  transition: background-image 0.9s ease;
+}
+
+.dark-mode {
+  background-image: url("../assets/dark_mode_bg2.png");
+  color: #e6e6e6;
+  transition: background-image 0.9s ease;
 }
 
 .container {
@@ -38,6 +47,7 @@ body {
   font-size: 1rem;
   background-image: linear-gradient(45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   font-weight: bold;
 }
