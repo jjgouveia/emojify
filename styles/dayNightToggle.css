@@ -26,8 +26,9 @@
 }
 
 .toggleContainer {
+  padding: 0.5rem 0;
   display: flex;
-  justify-content: center;
+  justify-content: right;
   transition: background var(--speed) var(--easing);
 }
 

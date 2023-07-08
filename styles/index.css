@@ -15,17 +15,20 @@
 body {
   font-family: "ComicNeue", sans-serif;
   text-align: center;
-  background-attachment: fixed;
 }
 
 .light-mode {
   background-image: url("../assets/light_mode_bg.png");
+  background-attachment: fixed;
+  background-size: cover;
   transition: background-image 0.9s ease;
 }
 
 .dark-mode {
   background-image: url("../assets/dark_mode_bg2.png");
   color: #e6e6e6;
+  background-attachment: fixed;
+  background-size: cover;
   transition: background-image 0.9s cubic-bezier(0.4, -0.3, 0.6, 1.3);
 }
 
