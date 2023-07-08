@@ -39,3 +39,4 @@ Para usar basta acessar o [Emojify](https://emojify-beta.vercel.app/) e fazer o 
 * Transformar o projeto em um PWA;
 * Adicionar suporte para imagens com transparência;
 * Melhorar a performance do algoritmo de comparação de cores;
+* Criar perfis predefinidos de configurações (ex: modo rápido, modo detalhado, etc);
