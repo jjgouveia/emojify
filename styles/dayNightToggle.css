@@ -26,7 +26,6 @@
 }
 
 .toggleContainer {
-  border: 1px solid red;
   display: flex;
   justify-content: center;
   transition: background var(--speed) var(--easing);
