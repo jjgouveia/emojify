@@ -39,7 +39,7 @@ algorithm.addEventListener('change', main);
 
 main();
 
-async function main (ev) {
+async function main () {
     enableInputs(false)
     buildEmojiMap(emojis);
     if (!img || image.files[0] != img.src) {
@@ -59,82 +59,78 @@ async function main (ev) {
     }
 
     async function analyzeImage (img, alg) {
-
         progressBar.style.display = "inline";
-        await delay(100)
+        await delay(100);
+
         const ROWS = Math.floor(img.naturalHeight / pSize.value);
         const COLS = Math.floor(img.naturalWidth / pSize.value);
-        result.width = COLS * scale.value;
-        result.height = (ROWS * scale.value) - scale.value;
+        const scaledWidth = COLS * scale.value;
+        const scaledHeight = (ROWS * scale.value) - scale.value;
 
-        x.clearRect(0, 0, result.width, result.height)
+        result.width = scaledWidth;
+        result.height = scaledHeight;
+
+        x.clearRect(0, 0, scaledWidth, scaledHeight);
+
         if (enableBgColor.checked) {
-            x.fillStyle = bgColor.value
-            x.fillRect(0, 0, result.width, result.height)
+            x.fillStyle = bgColor.value;
+            x.fillRect(0, 0, scaledWidth, scaledHeight);
         }
-        x.font = scale.value * (display.value == "chart" ? .75 : display.value == "mosaic" ? 1.5 : 1) + "px Segoe UI Emoji, Apple Color Emoji, Segoe UI Symbol, Noto Color Emoji"
+
+        const fontSize = scale.value * (display.value == "chart" ? 0.75 : display.value == "mosaic" ? 1.5 : 1);
+        x.font = fontSize + "px Segoe UI Emoji, Apple Color Emoji, Segoe UI Symbol, Noto Color Emoji";
 
         let hueMap = {};
-        var pixels = [];
+        const pixels = [];
+
         for (let i = 0; i < ROWS * COLS; i += 1) {
-
-            let row = Math.floor(i / COLS);
-            let col = i % COLS;
+            const row = Math.floor(i / COLS);
+            const col = i % COLS;
             hiddenX.willReadFrequently = true;
-            let buffer = hiddenX.getImageData(col * pSize.value, row * pSize.value, pSize.value, pSize.value);
-            let colorInfo = getColorInfo(buffer.data, false)
-            let lightness = colorInfo.lab[0];
-            let isBlack = colorInfo.rgb[0] == 0 && colorInfo.rgb[1] == 0 && colorInfo.rgb[2] == 0
 
-            let bestEmoji
-            if (!hueMap[lightness]) {
+            const buffer = hiddenX.getImageData(col * pSize.value, row * pSize.value, pSize.value, pSize.value);
+            const colorInfo = getColorInfo(buffer.data, false);
+            const lightness = colorInfo.lab[0];
+            const isBlack = colorInfo.rgb[0] === 0 && colorInfo.rgb[1] === 0 && colorInfo.rgb[2] === 0;
 
-                let best = []
-                let i = 0;
-                while (best.length == 0) {
-                    i = i + Number(tolerance.value);
-                    best = emojis.filter(e => {
-                        let d = alg(e.lab, colorInfo.lab)
-                        return d < i
-                    })
+            let bestEmoji = hueMap[lightness]?.emojis || [];
 
+            if (!bestEmoji.length) {
+                for (let i = Number(tolerance.value); bestEmoji.length === 0; i += Number(tolerance.value)) {
+                    bestEmoji = emojis.filter(e => alg(e.lab, colorInfo.lab) < i);
                 }
-                hueMap[lightness] = {}
-                hueMap[lightness].emojis = best
-
+                hueMap[lightness] = { emojis: bestEmoji };
             }
-            bestEmoji = hueMap[lightness].emojis[Math.floor(hueMap[lightness].emojis.length * Math.random())];
 
-            let xc = scale.value * col
-            let yc = scale.value * row
-            let p = {}
-            p.x = xc
-            p.y = yc
-            p.key = bestEmoji.key
-            p.isBlack = isBlack
-            pixels.push(p)
+            bestEmoji = bestEmoji[Math.floor(bestEmoji.length * Math.random())];
 
-            if (i % 500 == 0) {
+            const xc = scale.value * col;
+            const yc = scale.value * row;
+            pixels.push({
+                x: xc,
+                y: yc,
+                key: bestEmoji.key,
+                isBlack: isBlack,
+            });
 
+            if (i % 500 === 0) {
                 progressBar.style.width = Math.floor((i / (ROWS * COLS)) * 100) + "%";
                 await delay(0);
             }
         }
 
-        var pix = pixels.sort((a, b) => Math.random() > .5 ? 1 : -1);
-        for (emo of pix) {
+        const sortedPixels = pixels.sort(() => Math.random() > 0.5 ? 1 : -1);
 
-            let skipDueToBlack = hideBlack.checked && emo.isBlack
-            if (!skipDueToBlack) {
-                x.moveTo(emo.x, emo.y)
-                x.fillText(emo.key, emo.x, emo.y)
+        for (const emo of sortedPixels) {
+            if (!(hideBlack.checked && emo.isBlack)) {
+                x.fillText(emo.key, emo.x, emo.y);
             }
-            progressBar.setAttribute("style", `width:${0}%`)
+            progressBar.setAttribute("style", `width:${0}%`);
         }
 
-
-        enableInputs(true)
+        enableInputs(true);
     }
+
 
     function buildEmojiMap () {
         var em = getEm();
@@ -163,51 +159,58 @@ async function main (ev) {
                     (colors.transparentPixels / (colors.totalPixels + colors.transparentPixels)) < Number(emptySpace.value)
             });
         });
-
-        // var em = getEm();
         emojis = emojis.filter(emo => emo.isSupported && emo.width <= em);
     }
 
 
     function getColorInfo (arr) {
+        let sums = [0, 0, 0, 0, 0];
+        let totalColorPixels = 0;
+        let totalPixels = 0;
+        let transparentPixels = 0;
 
-        let sums = [0, 0, 0, 0, 0]
-        let j = -4
-        let blockSize = 4;//r,g,b,a
-        let totalColorPixels = 0
-        let totalPixels = 0
-        var transparentPixels = 0
-        while ((j += blockSize) < arr.length) {
+        for (let j = 0; j < arr.length; j += 4) {
+            const alpha = arr[j + 3];
 
-            if (arr[j + 3] === 0) {
-                transparentPixels++
+            if (alpha === 0) {
+                transparentPixels++;
                 continue;
             }
 
-            let isColor = !(arr[j] == arr[j + 1] && arr[j + 1] == arr[j + 2]);
-            if (isColor) totalColorPixels++
-            sums[0] += arr[j] ** 2 //r
-            sums[1] += arr[j + 1] ** 2 //g
-            sums[2] += arr[j + 2] ** 2  //b
-            sums[3] += arr[j + 3] //opacity
-            sums[4] += arr[j] + arr[j + 1] + arr[j + 2] + arr[j + 3] //sum
-            totalPixels++
+            const isColor = arr[j] !== arr[j + 1] || arr[j + 1] !== arr[j + 2];
+            if (isColor) {
+                totalColorPixels++;
+            }
+
+            sums[0] += arr[j] ** 2; // r
+            sums[1] += arr[j + 1] ** 2; // g
+            sums[2] += arr[j + 2] ** 2; // b
+            sums[3] += alpha; // opacity
+            sums[4] += arr[j] + arr[j + 1] + arr[j + 2] + alpha; // sum
+
+            totalPixels++;
         }
 
-        let rgb = totalPixels == 0 ? [0, 0, 0] : sums.filter((el, i) => i < 3).map(s => Math.round(Math.sqrt(s / totalPixels)));
-        let xyz = RGBtoXYZ(rgb[0], rgb[1], rgb[2])
-        let lab = XYZtoLAB(xyz[0], xyz[1], xyz[2])
+        const rgb = totalPixels === 0 ? [0, 0, 0] : sums.slice(0, 3).map(s => Math.round(Math.sqrt(s / totalPixels)));
+        const xyz = RGBtoXYZ(rgb[0], rgb[1], rgb[2]);
+        const lab = XYZtoLAB(xyz[0], xyz[1], xyz[2]);
 
-        sums = { "rgb": rgb, "lab": lab, "colorPixels": totalColorPixels, "totalPixels": totalPixels, transparentPixels: transparentPixels, checkSum: sums[4] }
-        return sums;
+        return {
+            rgb: rgb,
+            lab: lab,
+            colorPixels: totalColorPixels,
+            totalPixels: totalPixels,
+            transparentPixels: transparentPixels,
+            checkSum: sums[4]
+        };
     }
+
 
 
     function getEm () {
         var b = document.querySelector('body');
         return Number(window.getComputedStyle(b, null).fontSize.replace(/[^\d]/g, ""));
     }
-
 
 
     async function delay (ms) {
@@ -229,7 +232,7 @@ async function main (ev) {
         var_G *= 100;
         var_B *= 100;
 
-        const X = var_R * 0.4124 + var_G * 0.3576 + var_B * 0.1805; // Observer = 2°, Illuminant = D65
+        const X = var_R * 0.4124 + var_G * 0.3576 + var_B * 0.1805;
         const Y = var_R * 0.2126 + var_G * 0.7152 + var_B * 0.0722;
         const Z = var_R * 0.0193 + var_G * 0.1192 + var_B * 0.9505;
 
